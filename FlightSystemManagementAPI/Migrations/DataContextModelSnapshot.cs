@@ -151,28 +151,28 @@ namespace FlightSystemManagementAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9914f737-2dcc-4f88-8b3e-13aa0074d30c",
+                            Id = "e9b60f9f-6d56-4203-83bd-f5d70e9f27d5",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
-                            Id = "0bca8133-1436-4867-8e59-574af6329dda",
+                            Id = "01218737-8ad0-4d50-9d6a-b0142ba8c430",
                             ConcurrencyStamp = "1",
                             Name = "Nhân viên Go",
                             NormalizedName = "Nhân viên Go"
                         },
                         new
                         {
-                            Id = "d5394c2b-6595-4c5f-834c-99c9d1c4f4af",
+                            Id = "575321e6-54f3-4904-bbb2-e15e59234c60",
                             ConcurrencyStamp = "1",
                             Name = "Phi công",
                             NormalizedName = "Phi công"
                         },
                         new
                         {
-                            Id = "5dab5785-df43-465d-a9df-008d9bae7543",
+                            Id = "652a898f-2166-4af1-9f3e-12706eafbd21",
                             ConcurrencyStamp = "1",
                             Name = "Tiếp viên",
                             NormalizedName = "Tiếp viên"
@@ -214,6 +214,10 @@ namespace FlightSystemManagementAPI.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -267,6 +271,10 @@ namespace FlightSystemManagementAPI.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -348,6 +356,50 @@ namespace FlightSystemManagementAPI.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("FlightSystemManagementAPI.Models.Data.UserAccount", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CCCD")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<string>("ConfirmPassword")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("PhoneNumb")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
+
+                    b.Property<string>("role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("UserAccount");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

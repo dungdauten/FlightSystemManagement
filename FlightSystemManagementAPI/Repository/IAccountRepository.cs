@@ -1,7 +1,9 @@
 ﻿using FlightSystemManagementAPI.Models.Data;
 using FlightSystemManagementAPI.Models.DTO;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -21,6 +23,7 @@ namespace FlightSystemManagementAPI.Repository
         private readonly DataContext _dataContext;
         private readonly IConfiguration _configuration;
 
+        
 
         public AccountRepository(UserManager<IdentityUser> userManager,
             IConfiguration configuration, RoleManager<IdentityRole> roleManager, DataContext dataContext)
@@ -69,7 +72,7 @@ namespace FlightSystemManagementAPI.Repository
             };
         }
 
-        public async Task<Response> SignUpAsync(Register model, string role)
+        public async Task<Response> SignUpAsync(Register model,string role)
         {
             if (model == null)
             {
@@ -85,31 +88,30 @@ namespace FlightSystemManagementAPI.Repository
             if (model.Password != model.ConfirmPassword)
                 return new Response { Message = "Xác nhận mật khẩu không giống với mật khẩu", isSucess = false };
 
-            IdentityUser identityUser=new()
+            IdentityUser identityUser = new()
             {
                 Email = model.Email,
-                
                 UserName = model.FirstName+ "" + model.LastName,
                 SecurityStamp = Guid.NewGuid().ToString(),
             };
 
-            if (await _roleManager.RoleExistsAsync(role))
-            {
-                var result = await _userManager.CreateAsync(identityUser,model.Password);
-
-                if (result.Succeeded)
+                if (await _roleManager.RoleExistsAsync(role))
                 {
-                    await _userManager.AddToRoleAsync(identityUser, role);
+                    var result = await _userManager.CreateAsync(identityUser,model.Password);
+
+                    if (result.Succeeded)
+                    {
+                        await _userManager.AddToRoleAsync(identityUser, role);
 
                    
-                    return new Response { Message = "Tạo tài khoản thành công", isSucess = true };
+                        return new Response { Message = "Tạo tài khoản thành công", isSucess = true };
+                    }
+                    return new Response { Message = "Tạo tài khoản không thành công", isSucess = false, Errors = result.Errors.Select(e => e.Description) };
                 }
-                return new Response { Message = "Tạo tài khoản không thành công", isSucess = false, Errors = result.Errors.Select(e => e.Description) };
-            }
             else
                 return new Response { Message = "Role không tồn tại!", isSucess = false };
-
-            
         }
+
+       
     }
 }

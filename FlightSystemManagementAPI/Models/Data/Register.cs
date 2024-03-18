@@ -1,9 +1,18 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 
 namespace FlightSystemManagementAPI.Models.Data
 {
+    
     public class Register
     {
+        public readonly RoleManager<IdentityRole> _roleManager;
+
+       
+
+
         [Required(ErrorMessage = "Bắt buộc phải nhập email người dùng")]
         [MaxLength(40, ErrorMessage = "Tối đa 40 kí tự")]
         [EmailAddress]
@@ -24,5 +33,11 @@ namespace FlightSystemManagementAPI.Models.Data
         [Display(Name = "Tên người dùng")]
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        [Required]
+        public string? role { get; set; }
+        [ValidateNever]
+        public IEnumerable<SelectListItem> RoleList { get; set; }
+
+
     }
 }

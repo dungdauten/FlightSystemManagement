@@ -13,7 +13,7 @@ namespace FlightSystemManagementAPI.Models.Data
         public DbSet<AdminLogic> AdminLogics { get; set; }
         public DbSet<PlaneInfoDTO> PlaneInfo { get; set; }
         public DbSet<FlightBookingDTO> FlightBookings { get; set; }
-
+        public DbSet<UserAccount> UserAccounts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

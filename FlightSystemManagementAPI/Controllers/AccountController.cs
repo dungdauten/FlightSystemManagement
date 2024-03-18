@@ -3,7 +3,9 @@ using FlightSystemManagementAPI.Models.Data;
 using FlightSystemManagementAPI.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
 using System.Text;
 
 namespace FlightSystemManagementAPI.Controllers
@@ -16,11 +18,12 @@ namespace FlightSystemManagementAPI.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly IAccountRepository accountRepo;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly DataContext _dataContext;
         private IConfiguration _configuration;
-        public AccountController(IAccountRepository repo, IConfiguration configuration, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public AccountController(IAccountRepository repo, IConfiguration configuration, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager,DataContext dataContext)
         {
             accountRepo = repo;
-            
+            _dataContext = dataContext;
             _configuration = configuration;
             _userManager = userManager;
             _roleManager = roleManager;
@@ -59,6 +62,14 @@ namespace FlightSystemManagementAPI.Controllers
             }
             return BadRequest("Đăng nhập không hợp lệ");
 
+        }
+
+        [HttpGet("Roles")]
+        public async Task<IActionResult> GetRoles()
+        {
+            IdentityRole[] rolesArr = _roleManager.Roles.ToArray();
+            List<IdentityRole> rolesList = rolesArr.ToList();
+            return Ok(rolesList);
         }
     }
 }

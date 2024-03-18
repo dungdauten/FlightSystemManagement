@@ -6,8 +6,7 @@ namespace FlightSystemManagementAPI.Models.Data
     public class UserAccount : IdentityUser
     {
 
-        [Key]
-        public int User_Id {  get; set; }
+        
 
         [Required(ErrorMessage = "Bắt buộc phải nhập tên người dùng")]
         [MaxLength(20, ErrorMessage = "Tối đa 20 kí tự")]
@@ -49,5 +48,6 @@ namespace FlightSystemManagementAPI.Models.Data
         [StringLength(11)]
         [Display(Name = "Căn cước người dùng")]
         public string CCCD { get; set; }
+        public string role { get; set; }
     }
 }
