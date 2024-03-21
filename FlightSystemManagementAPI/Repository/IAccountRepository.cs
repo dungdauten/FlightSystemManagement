@@ -24,7 +24,6 @@ namespace FlightSystemManagementAPI.Repository
         private readonly IConfiguration _configuration;
 
         
-
         public AccountRepository(UserManager<IdentityUser> userManager,
             IConfiguration configuration, RoleManager<IdentityRole> roleManager, DataContext dataContext)
         {
@@ -111,7 +110,5 @@ namespace FlightSystemManagementAPI.Repository
             else
                 return new Response { Message = "Role không tồn tại!", isSucess = false };
         }
-
-       
     }
 }

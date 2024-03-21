@@ -45,6 +45,9 @@ namespace FlightSystemManagementAPI.Migrations
                     b.Property<int>("PlaneId")
                         .HasColumnType("int");
 
+                    b.Property<int>("PlaneInfoPlaneID")
+                        .HasColumnType("int");
+
                     b.Property<string>("SeatType")
                         .IsRequired()
                         .HasMaxLength(10)
@@ -56,6 +59,8 @@ namespace FlightSystemManagementAPI.Migrations
                         .HasColumnType("nvarchar(40)");
 
                     b.HasKey("BookingId");
+
+                    b.HasIndex("PlaneInfoPlaneID");
 
                     b.ToTable("FlightBookings");
                 });
@@ -151,28 +156,28 @@ namespace FlightSystemManagementAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e9b60f9f-6d56-4203-83bd-f5d70e9f27d5",
+                            Id = "eed717ad-bf40-4005-967d-8c53d2900cfa",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
-                            Id = "01218737-8ad0-4d50-9d6a-b0142ba8c430",
+                            Id = "1ca64a0f-b78a-44e1-ad7d-920ced76bd2b",
                             ConcurrencyStamp = "1",
                             Name = "Nhân viên Go",
                             NormalizedName = "Nhân viên Go"
                         },
                         new
                         {
-                            Id = "575321e6-54f3-4904-bbb2-e15e59234c60",
+                            Id = "8576f06f-9061-4448-8482-6381365c537f",
                             ConcurrencyStamp = "1",
                             Name = "Phi công",
                             NormalizedName = "Phi công"
                         },
                         new
                         {
-                            Id = "652a898f-2166-4af1-9f3e-12706eafbd21",
+                            Id = "a05cd3bc-8f99-4490-a40e-7ec241f02c7e",
                             ConcurrencyStamp = "1",
                             Name = "Tiếp viên",
                             NormalizedName = "Tiếp viên"
@@ -400,6 +405,17 @@ namespace FlightSystemManagementAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("UserAccount");
+                });
+
+            modelBuilder.Entity("FlightSystemManagementAPI.Models.DTO.FlightBookingDTO", b =>
+                {
+                    b.HasOne("FlightSystemManagementAPI.Models.DTO.PlaneInfoDTO", "PlaneInfo")
+                        .WithMany()
+                        .HasForeignKey("PlaneInfoPlaneID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PlaneInfo");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

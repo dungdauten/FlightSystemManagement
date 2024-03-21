@@ -25,5 +25,6 @@ namespace FlightSystemManagementAPI.Models.DTO
         [Display(Name = "Loại vé ngồi")]
         [StringLength(10)]
         public string SeatType { get; set; }
+
     }
 }

@@ -10,6 +10,7 @@ namespace FlightSystemManagementAPI.Configurations
         public MapperInitilizer() 
         { 
             CreateMap<PlaneInfo,PlaneInfoDTO>().ReverseMap();
+            CreateMap<FlightBooking, FlightBookingDTO>().ReverseMap();
         }
     }
 }
