@@ -38,14 +38,16 @@ namespace FlightSystemManagementAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FlightNo")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
                     b.Property<string>("FromCity")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PlaneId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PlaneInfoPlaneID")
                         .HasColumnType("int");
 
                     b.Property<string>("SeatType")
@@ -59,8 +61,6 @@ namespace FlightSystemManagementAPI.Migrations
                         .HasColumnType("nvarchar(40)");
 
                     b.HasKey("BookingId");
-
-                    b.HasIndex("PlaneInfoPlaneID");
 
                     b.ToTable("FlightBookings");
                 });
@@ -127,6 +127,137 @@ namespace FlightSystemManagementAPI.Migrations
                     b.ToTable("AdminLogics");
                 });
 
+            modelBuilder.Entity("FlightSystemManagementAPI.Models.Data.DocRoles", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DocumentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DocRoles");
+                });
+
+            modelBuilder.Entity("FlightSystemManagementAPI.Models.Data.DocType", b =>
+                {
+                    b.Property<int>("DocType_Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DocType_Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Note")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DocType_Id");
+
+                    b.ToTable("DocTypes");
+                });
+
+            modelBuilder.Entity("FlightSystemManagementAPI.Models.Data.Document", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("BookingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DocType_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FlightId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TypeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookingId");
+
+                    b.HasIndex("DocType_Id");
+
+                    b.ToTable("Documents");
+                });
+
+            modelBuilder.Entity("FlightSystemManagementAPI.Models.Data.FlightBooking", b =>
+                {
+                    b.Property<int>("BookingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingId"));
+
+                    b.Property<string>("DDay")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DTime")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FlightNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FromCity")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PlaneId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SeatType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ToCity")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("BookingId");
+
+                    b.ToTable("FlightBooking");
+                });
+
+            modelBuilder.Entity("FlightSystemManagementAPI.Models.Data.PermissionGroups", b =>
+                {
+                    b.Property<int>("GroupId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GroupId"));
+
+                    b.Property<string>("GroupName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("GroupId");
+
+                    b.ToTable("PermissionGroups");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -144,6 +275,9 @@ namespace FlightSystemManagementAPI.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<int?>("PermissionGroupsGroupId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
@@ -151,33 +285,35 @@ namespace FlightSystemManagementAPI.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
+                    b.HasIndex("PermissionGroupsGroupId");
+
                     b.ToTable("AspNetRoles", (string)null);
 
                     b.HasData(
                         new
                         {
-                            Id = "eed717ad-bf40-4005-967d-8c53d2900cfa",
+                            Id = "69e424ac-0426-4e55-a324-6b050b08f0bc",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "Admin"
                         },
                         new
                         {
-                            Id = "1ca64a0f-b78a-44e1-ad7d-920ced76bd2b",
+                            Id = "51df59d0-b1fd-4630-b59e-cfd2de1911e0",
                             ConcurrencyStamp = "1",
                             Name = "Nhân viên Go",
                             NormalizedName = "Nhân viên Go"
                         },
                         new
                         {
-                            Id = "8576f06f-9061-4448-8482-6381365c537f",
+                            Id = "f8732cfb-715e-43a0-8147-d2dd220b960e",
                             ConcurrencyStamp = "1",
                             Name = "Phi công",
                             NormalizedName = "Phi công"
                         },
                         new
                         {
-                            Id = "a05cd3bc-8f99-4490-a40e-7ec241f02c7e",
+                            Id = "5f60473d-babd-42e0-b6cd-9c80ced2979b",
                             ConcurrencyStamp = "1",
                             Name = "Tiếp viên",
                             NormalizedName = "Tiếp viên"
@@ -407,15 +543,39 @@ namespace FlightSystemManagementAPI.Migrations
                     b.HasDiscriminator().HasValue("UserAccount");
                 });
 
-            modelBuilder.Entity("FlightSystemManagementAPI.Models.DTO.FlightBookingDTO", b =>
+            modelBuilder.Entity("FlightSystemManagementAPI.Models.Data.DocRoles", b =>
                 {
-                    b.HasOne("FlightSystemManagementAPI.Models.DTO.PlaneInfoDTO", "PlaneInfo")
-                        .WithMany()
-                        .HasForeignKey("PlaneInfoPlaneID")
+                    b.HasOne("FlightSystemManagementAPI.Models.Data.Document", "Document")
+                        .WithMany("RoleNameList")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("PlaneInfo");
+                    b.Navigation("Document");
+                });
+
+            modelBuilder.Entity("FlightSystemManagementAPI.Models.Data.Document", b =>
+                {
+                    b.HasOne("FlightSystemManagementAPI.Models.Data.FlightBooking", "Flight")
+                        .WithMany()
+                        .HasForeignKey("BookingId");
+
+                    b.HasOne("FlightSystemManagementAPI.Models.Data.DocType", "Type")
+                        .WithMany("Documents")
+                        .HasForeignKey("DocType_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Flight");
+
+                    b.Navigation("Type");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.HasOne("FlightSystemManagementAPI.Models.Data.PermissionGroups", null)
+                        .WithMany("Roles")
+                        .HasForeignKey("PermissionGroupsGroupId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -467,6 +627,21 @@ namespace FlightSystemManagementAPI.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("FlightSystemManagementAPI.Models.Data.DocType", b =>
+                {
+                    b.Navigation("Documents");
+                });
+
+            modelBuilder.Entity("FlightSystemManagementAPI.Models.Data.Document", b =>
+                {
+                    b.Navigation("RoleNameList");
+                });
+
+            modelBuilder.Entity("FlightSystemManagementAPI.Models.Data.PermissionGroups", b =>
+                {
+                    b.Navigation("Roles");
                 });
 #pragma warning restore 612, 618
         }

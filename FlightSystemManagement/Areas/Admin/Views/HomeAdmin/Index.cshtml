@@ -2,6 +2,7 @@
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
+@model PlaneInfo
 <style>
     table {
         border-collapse: collapse;
@@ -33,29 +34,16 @@
     </nav>
 </div>
 <table>
-    <tr>
-        <th>Document Name</th>
-        <th>Type</th>
-        <th>Flight no</th>
-        <th>Departure date</th>
-        <th>Creator</th>
-        <th>Updated Date</th>
-    </tr>
-    <tr>
-        <td>Document 1</td>
-        <td>Report</td>
-        <td>ABC123</td>
-        <td>2024-03-07</td>
-        <td>John Doe</td>
-        <td>2024-03-07</td>
-    </tr>
-    <tr>
-        <td>Document 2</td>
-        <td>Invoice</td>
-        <td>XYZ456</td>
-        <td>2024-03-08</td>
-        <td>Jane Smith</td>
-        <td>2024-03-08</td>
-    </tr>
+    <thead>
+        <tr>
+            <th>Document Name</th>
+            <th>Type</th>
+            <th>Flight no</th>
+            <th>Departure date</th>
+            <th>Creator</th>
+            <th>Updated Date</th>
+        </tr>
+    </thead>
+    
     <!-- Add more rows as needed -->
 </table>

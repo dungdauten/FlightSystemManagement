@@ -1,0 +1,75 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@model List<FlightBooking>
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white me-2">
+            <i class="mdi mdi-home"></i>
+        </span> Dashboard
+    </h3>
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">
+                <span></span>Overview <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+            </li>
+        </ul>
+    </nav>
+</div>
+<table>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Flight No</th>
+            <th>From City</th>
+            <th>To City</th>
+            <th>Departure Time</th>
+            <th>Departure Day</th>
+            <th>Plane Id</th>
+            <th>Seat Type</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th>@item.BookingId</th>
+                <td>@item.FlightNo</td>
+                <td>@item.FromCity</td>
+                <td>@item.ToCity</td>
+                <td>@item.DTime</td>
+                <td>@item.DDay</td>
+                <td>@item.PlaneId</td>
+                <td>@item.SeatType</td>
+                
+                <td>
+                    <a asp-action="Create" asp-controller="PlaneAdmin"><i class="fa-solid fa-circle-plus"></i></a>
+                    @* <a asp-action="Edit" class="btn btn-warning" asp-controller="PlaneAdmin"
+                asp-route-id=@item.PlaneID><i class="mdi-border-color"></i></a> *@
+                    <button>@Html.ActionLink("", "Delete", new { id = item.BookingId })<i class="fa-regular fa-trash-can"></i></button>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+    <!-- Add more rows as needed -->
+</table>

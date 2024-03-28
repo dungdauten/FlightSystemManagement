@@ -2,6 +2,8 @@
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
+@model List<PlaneInfo>
+
 <style>
     table {
         border-collapse: collapse;
@@ -33,29 +35,32 @@
     </nav>
 </div>
 <table>
-    <tr>
-        <th>Document Name</th>
-        <th>Type</th>
-        <th>Flight no</th>
-        <th>Departure date</th>
-        <th>Creator</th>
-        <th>Updated Date</th>
-    </tr>
-    <tr>
-        <td>Document 1</td>
-        <td>Report</td>
-        <td>ABC123</td>
-        <td>2024-03-07</td>
-        <td>John Doe</td>
-        <td>2024-03-07</td>
-    </tr>
-    <tr>
-        <td>Document 2</td>
-        <td>Invoice</td>
-        <td>XYZ456</td>
-        <td>2024-03-08</td>
-        <td>Jane Smith</td>
-        <td>2024-03-08</td>
-    </tr>
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Plane Name</th>
+            <th>Plane Capity</th>
+            <th>Price</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th>@item.PlaneID</th>
+                <td>@item.APlaneName</td>
+                <td>@item.APlaneCapity</td>
+                <td>@item.Price.ToString("#,#00")</td>
+                <td>
+                    <a asp-action="Create" asp-controller="PlaneAdmin"><i class="fa-solid fa-circle-plus"></i></a>
+                    @* <a asp-action="Edit" class="btn btn-warning" asp-controller="PlaneAdmin"
+                asp-route-id=@item.PlaneID><i class="mdi-border-color"></i></a> *@
+                    <a asp-action="Delete" asp-route-id="@item.PlaneID" type="submit"><i class="fa-regular fa-trash-can"></i></a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
     <!-- Add more rows as needed -->
 </table>

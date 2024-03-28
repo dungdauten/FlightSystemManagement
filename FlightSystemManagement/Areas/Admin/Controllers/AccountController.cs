@@ -16,15 +16,17 @@ namespace FlightSystemManagement.Areas.Admin.Controllers
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly HttpClient _httpclient;
+        private readonly DataContext _dataContext;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<IdentityUser> _userManager;
-        public AccountController(IHttpClientFactory httpClient, UserManager<IdentityUser> userManager, IWebHostEnvironment webHostEnvironment, HttpClient client, RoleManager<IdentityRole> roleManager)
+        public AccountController(IHttpClientFactory httpClient, UserManager<IdentityUser> userManager, IWebHostEnvironment webHostEnvironment, HttpClient client, RoleManager<IdentityRole> roleManager, DataContext dataContext)
         {
             _userManager = userManager;
             _httpClientFactory = httpClient;
             _webHostEnvironment = webHostEnvironment;
             _httpclient = client;
             _roleManager = roleManager;
+            _dataContext = dataContext;
         }
         public IActionResult Login()
         {
@@ -110,7 +112,7 @@ namespace FlightSystemManagement.Areas.Admin.Controllers
                 var roles = await response.Content.ReadFromJsonAsync<List<IdentityRole>>();
                 if (roles.Any())
                 {
-                    ViewBag.Roles = roles;
+                    ViewBag.Roles = new SelectList(_dataContext.Roles,"Roles","Roles");
                     return View(roles);
                 }
                 else

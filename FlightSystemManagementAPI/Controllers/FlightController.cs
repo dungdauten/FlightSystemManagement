@@ -34,8 +34,6 @@ namespace FlightSystemManagementAPI.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> Create(FlightBooking flights)
         {
-
-
             var findFlights = _dataContext.FlightBookings.Where(c => c.BookingId == flights.BookingId).FirstOrDefault();
             if (findFlights != null)
             {
@@ -48,6 +46,8 @@ namespace FlightSystemManagementAPI.Controllers
                 {
                     FlightBooking flight = new FlightBooking()
                     {
+                        BookingId = flights.BookingId,
+                        FlightNo= flights.FlightNo,
                         FromCity = flights.FromCity,
                         ToCity = flights.ToCity,
                         DDay = flights.DDay,
@@ -113,24 +113,30 @@ namespace FlightSystemManagementAPI.Controllers
                 return BadRequest("Mã máy bay không tồn tại");
             }
         }
+
         [HttpGet("Search")]
         public async Task<IActionResult> SearchFlights(string? departureDate, string? departureTime, int? planeid)
         {
             var flights = _dataContext.Set<FlightBookingDTO>().ToList();
             // Lọc danh sách chuyến bay dựa trên các thông tin tìm kiếm
             var filteredFlights = flights;
-            if (!string.IsNullOrEmpty(departureDate) && !string.IsNullOrEmpty(departureTime))
+            if (!string.IsNullOrEmpty(departureDate))
             {
-                filteredFlights = filteredFlights.Where(f => string.Equals(f.DDay, departureDate, StringComparison.OrdinalIgnoreCase) && string.Equals(f.DTime, departureTime, StringComparison.OrdinalIgnoreCase)).ToList();
+                filteredFlights = filteredFlights.Where(f => string.Equals(f.DDay, departureDate, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+            if (!string.IsNullOrEmpty(departureTime))
+            {
+                // Cắt bỏ phần phút trong departureTime (ví dụ: 9:00 am -> 9:00)
+                var searchTime = departureTime.Substring(0, 4); // Giả sử departureTime đã có định dạng "hh:mm" (ví dụ: 9:00)
+
+                filteredFlights = filteredFlights.Where(f => f.DTime.StartsWith(searchTime)).ToList();
             }
             else if (planeid != null)
             {
                 filteredFlights = filteredFlights.Where(f => f.PlaneId == planeid).ToList();
             }
 
-
             return Ok(filteredFlights);
         }
-
     }
 }

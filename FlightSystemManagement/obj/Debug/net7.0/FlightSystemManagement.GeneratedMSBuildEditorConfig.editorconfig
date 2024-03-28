@@ -24,8 +24,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Thuc Tap/FlightSystemSln/FlightSystemManagement/Areas/Admin/Views/FlightAdmin/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcRmxpZ2h0QWRtaW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Thuc Tap/FlightSystemSln/FlightSystemManagement/Areas/Admin/Views/HomeAdmin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZUFkbWluXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Thuc Tap/FlightSystemSln/FlightSystemManagement/Areas/Admin/Views/PlaneAdmin/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUGxhbmVBZG1pblxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Thuc Tap/FlightSystemSln/FlightSystemManagement/Areas/Admin/Views/PlaneAdmin/Index.cshtml]
@@ -34,10 +42,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Thuc Tap/FlightSystemSln/FlightSystemManagement/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXF9MYXlvdXRBZG1pbi5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Thuc Tap/FlightSystemSln/FlightSystemManagement/Areas/Admin/Views/Shared/_RolePartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXF9Sb2xlUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Thuc Tap/FlightSystemSln/FlightSystemManagement/Areas/Admin/Views/_ViewImports.cshtml]

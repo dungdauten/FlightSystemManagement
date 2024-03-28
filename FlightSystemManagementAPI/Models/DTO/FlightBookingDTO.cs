@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FlightSystemManagementAPI.Models.Data;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FlightSystemManagementAPI.Models.DTO
 {
@@ -6,6 +8,10 @@ namespace FlightSystemManagementAPI.Models.DTO
     {
         [Key]
         public int BookingId { get; set; }
+        [Required]
+        [Display(Name ="Mã chuyến bay")]
+        [StringLength(10)]
+        public string FlightNo { get; set; }
         public string FromCity { get; set; }
 
         [Required(ErrorMessage = "Vui lòng chọn địa điểm đến")]
@@ -20,7 +26,6 @@ namespace FlightSystemManagementAPI.Models.DTO
         [Display(Name = "Ngày khởi hành")]
         [DataType(DataType.Date)]
         public string DDay { get; set; }
-
         public int PlaneId { get; set; }
         [Display(Name = "Loại vé ngồi")]
         [StringLength(10)]

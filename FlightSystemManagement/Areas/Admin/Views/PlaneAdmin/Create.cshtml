@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@model PlaneInfo
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white me-2">
+            <i class="mdi mdi-home"></i>
+        </span> Dashboard
+    </h3>
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">
+                <span></span>Overview <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+
+<form asp-action="Create" enctype="multipart/form-data" method="post">    
+    <div class="form-group">
+        <label>Tên máy bay</label>
+        <input asp-for="APlaneName" class="form-control" />
+        <span asp-validation-for="APlaneName" class="text-danger" />
+    </div>
+
+    <div class="form-group">
+        <label>Số lượng hành khách</label>
+        <input asp-for="APlaneCapity" class="form-control" />
+        <span asp-validation-for="APlaneCapity" class="text-danger" />
+    </div>
+
+    <div class="form-group">
+        <label>Giá cả</label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger" />
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary">Thêm</button>
+    </div>
+</form>
+<a asp-action="Index" asp-controller="PlaneAdmin">Quay trở lại</a>

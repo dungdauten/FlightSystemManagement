@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace FlightSystemManagementAPI.Models.Data
 {
@@ -9,17 +10,18 @@ namespace FlightSystemManagementAPI.Models.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
-
+        public DbSet<PermissionGroups> PermissionGroups { get; set; }
         public DbSet<AdminLogic> AdminLogics { get; set; }
         public DbSet<PlaneInfoDTO> PlaneInfo { get; set; }
         public DbSet<FlightBookingDTO> FlightBookings { get; set; }
         public DbSet<UserAccount> UserAccounts { get; set; }
-
+        public DbSet<Document> Documents { get; set; }
+        public DbSet<DocType> DocTypes { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
             SeedRoles(builder);
-
+            
         }
         public static void SeedRoles(ModelBuilder builder)
         {
